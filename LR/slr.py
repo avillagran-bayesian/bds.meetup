@@ -13,6 +13,7 @@ Y = df.medv
 X = df.lstat
 X = sm.add_constant(X)
 
+# Simple linear regression
 lm = sm.OLS(Y,X)
 result = lm.fit()
 
@@ -20,7 +21,6 @@ print(result.summary())
 
 new = pd.DataFrame([[1, 5], [1, 10], [1, 15]], columns=['Intercept', 'lstat'])
 result.predict(new)
-
 
 import seaborn as sns
 sns.regplot('lstat', 'medv', df, line_kws = {"color":"r"}, ci=None)
@@ -33,3 +33,9 @@ sns.regplot(fitted_values, s_residuals,  fit_reg=False)
 from statsmodels.stats.outliers_influence import OLSInfluence
 leverage = pd.Series(OLSInfluence(result).influence, name = "Leverage")
 sns.regplot(leverage, s_residuals,  fit_reg=False)
+
+# Multiple linear regression
+from statsmodels.formula.api import ols
+mod = ols(formula='medv ~ age + tax + black', data=df)
+res = mod.fit()
+print(res.summary())
