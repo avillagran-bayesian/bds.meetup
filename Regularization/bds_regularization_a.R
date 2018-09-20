@@ -30,13 +30,6 @@ fit.elnet <- glmnet(x.train, y.train, family="gaussian", alpha=0.5)
 
 # 10-fold Cross validation for each alpha = 0, 0.1, ... , 0.9, 1.0
 # (For plots on Right)
-fit.lasso.cv <- cv.glmnet(x.train, y.train, type.measure="mse", alpha=1, 
-                          family="gaussian")
-fit.ridge.cv <- cv.glmnet(x.train, y.train, type.measure="mse", alpha=0,
-                          family="gaussian")
-fit.elnet.cv <- cv.glmnet(x.train, y.train, type.measure="mse", alpha=0.5,
-                          family="gaussian")
-
 
 for (i in 0:10) {
   assign(paste("fit", i, sep=""), cv.glmnet(x.train, y.train, type.measure="mse", 
